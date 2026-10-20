@@ -29,53 +29,54 @@ struct RegistrationView: View {
                         .foregroundStyle(Color("DarkBrown"))
 
                     HStack(spacing: 16) {
-                        VStack(alignment: .leading, spacing: 5) {
+                        VStack(alignment: .leading, spacing: 0) {
                             Text("First Name")
-                                .font(.caption)
+                                .font(.subheadline)
                                 .foregroundStyle(Color("DarkBrown"))
 
                             TextField("John", text: $firstName)
-                                .padding()
-                                .background(Color("Surface"))
-                                .cornerRadius(8)
+                                .autocorrectionDisabled()
+                                .inputBox()
                         }
 
-                        VStack(alignment: .leading, spacing: 5) {
+                        VStack(alignment: .leading, spacing: 0) {
                             Text("Last Name")
-                                .font(.caption)
+                                .font(.subheadline)
                                 .foregroundStyle(Color("DarkBrown"))
 
                             TextField("Doe", text: $lastName)
-                                .padding()
-                                .background(Color("Surface"))
-                                .cornerRadius(8)
+                                .autocorrectionDisabled()
+                                .inputBox()
                         }
                     }
 
-                    VStack(alignment: .leading, spacing: 5) {
+                    VStack(alignment: .leading, spacing: 0) {
                         Text("E-mail")
-                            .font(.caption)
+                            .font(.subheadline)
                             .foregroundStyle(Color("DarkBrown"))
 
                         TextField("Enter your email", text: $email)
-                            .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
-                            .padding()
-                            .background(Color("Surface"))
-                            .cornerRadius(8)
+                            .keyboardType(.emailAddress)
+                            .autocorrectionDisabled()
+                            .inputBox()
                     }
 
-                    VStack(alignment: .leading, spacing: 5) {
+                    VStack(alignment: .leading, spacing: 0) {
                         Text("Password")
-                            .font(.caption)
+                            .font(.subheadline)
                             .foregroundStyle(Color("DarkBrown"))
 
                         HStack {
-                            if showPassword {
-                                TextField("Enter your password", text: $password)
-                            } else {
-                                SecureField("Enter your password", text: $password)
+                            Group {
+                                if showPassword {
+                                    TextField("Enter your password", text: $password)
+                                } else {
+                                    SecureField("Enter your password", text: $password)
+                                }
                             }
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled()
 
                             Button {
                                 showPassword.toggle()
@@ -84,26 +85,29 @@ struct RegistrationView: View {
                                     .foregroundStyle(Color("Taupe"))
                             }
                         }
-                        .padding()
-                        .background(Color("Surface"))
-                        .cornerRadius(8)
+                        .inputBox()
 
                         Text("must contain 8 char.")
                             .font(.caption2)
                             .foregroundStyle(Color("Taupe"))
+                            .padding(.top, 4)
                     }
 
-                    VStack(alignment: .leading, spacing: 5) {
+                    VStack(alignment: .leading, spacing: 0) {
                         Text("Confirm Password")
-                            .font(.caption)
+                            .font(.subheadline)
                             .foregroundStyle(Color("DarkBrown"))
 
                         HStack {
-                            if showConfirmPassword {
-                                TextField("Confirm your password", text: $confirmPassword)
-                            } else {
-                                SecureField("Confirm your password", text: $confirmPassword)
+                            Group {
+                                if showConfirmPassword {
+                                    TextField("Confirm your password", text: $confirmPassword)
+                                } else {
+                                    SecureField("Confirm your password", text: $confirmPassword)
+                                }
                             }
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled()
 
                             Button {
                                 showConfirmPassword.toggle()
@@ -112,9 +116,7 @@ struct RegistrationView: View {
                                     .foregroundStyle(Color("Taupe"))
                             }
                         }
-                        .padding()
-                        .background(Color("Surface"))
-                        .cornerRadius(8)
+                        .inputBox()
                     }
 
                     Spacer()

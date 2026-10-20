@@ -7,6 +7,18 @@ enum AppTheme {
     static let background = Color("Cream")
 }
 
+// Input-Box
+extension View {
+    func inputBox() -> some View {
+        self
+            .padding()
+            .background(Color("Surface"))
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color("Taupe").opacity(0.3)))
+            .padding(.top, 6)
+    }
+}
+
 // Primary-Button
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {

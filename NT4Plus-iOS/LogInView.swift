@@ -112,17 +112,6 @@ struct LoginView: View {
     }
 }
 
-private extension View {
-    func inputBox() -> some View {
-        self
-            .padding()
-            .background(Color("Surface"))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color("Taupe").opacity(0.3)))
-            .padding(.top, 6)
-    }
-}
-
 #Preview {
     LoginView(onSuccess: {})
 }
