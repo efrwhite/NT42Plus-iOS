@@ -23,7 +23,7 @@ struct PrimaryButtonStyle: ButtonStyle {
     }
 }
 
-/Secondary-Button/
+// Secondary-Button
 struct SecondaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
