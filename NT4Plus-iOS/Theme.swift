@@ -1,12 +1,13 @@
 import SwiftUI
 
+// App-Theme
 enum AppTheme {
-    // MARK: - Semantic Colors
     static let primary = Color("Wine")
     static let accent = Color("Rose")
     static let background = Color("Cream")
 }
 
+// Primary-Button
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -22,6 +23,7 @@ struct PrimaryButtonStyle: ButtonStyle {
     }
 }
 
+/Secondary-Button/
 struct SecondaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
