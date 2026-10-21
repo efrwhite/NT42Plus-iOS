@@ -12,7 +12,6 @@ struct ProfileView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 20)
 
-                // Study Progress
                 VStack(alignment: .leading, spacing: 14) {
                     Text("Study Progress")
                         .font(.title2).bold()
@@ -31,7 +30,6 @@ struct ProfileView: View {
                 .background(Color("Surface"))
                 .clipShape(RoundedRectangle(cornerRadius: 14))
 
-                // Profile Options
                 VStack(spacing: 16) {
                     optionButton(title: "Study Week", icon: "calendar")
                     optionButton(title: "Community Guidelines", icon: "book.closed")
@@ -47,7 +45,7 @@ struct ProfileView: View {
 
     private func optionButton(title: String, icon: String) -> some View {
         Button {
-            // Action to be added later
+            // Add Action
         } label: {
             HStack(spacing: 16) {
                 Image(systemName: icon)
