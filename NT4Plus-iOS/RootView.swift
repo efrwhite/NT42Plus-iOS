@@ -7,6 +7,7 @@ enum AuthRoute: Hashable {
 
 struct RootView: View {
     @State private var showSplash = true
+    @State private var isAuthenticated = false
     @State private var path: [AuthRoute] = []
 
     var body: some View {
@@ -18,6 +19,9 @@ struct RootView: View {
                     }
                 }
                 .transition(.opacity)
+            } else if isAuthenticated {
+                MainTabView()
+                    .transition(.opacity)
             } else {
                 NavigationStack(path: $path) {
                     WelcomeView(
@@ -27,9 +31,19 @@ struct RootView: View {
                     .navigationDestination(for: AuthRoute.self) { route in
                         switch route {
                         case .login:
-                            LoginView(onSuccess: { path = [] })
+                            LoginView(onSuccess: {
+                                withAnimation {
+                                    isAuthenticated = true
+                                    path = []
+                                }
+                            })
                         case .register:
-                            RegistrationView(onSuccess: { path = [] })
+                            RegistrationView(onSuccess: {
+                                withAnimation {
+                                    isAuthenticated = true
+                                    path = []
+                                }
+                            })
                         }
                     }
                 }
