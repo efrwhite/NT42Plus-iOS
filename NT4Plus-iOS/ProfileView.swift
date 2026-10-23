@@ -6,7 +6,7 @@ struct ProfileView: View {
             VStack(spacing: 32) {
                 Text("Profile")
                     .font(.largeTitle).bold()
-                    .foregroundStyle(Color("DarkBrown"))
+                    .foregroundStyle(AppTheme.textPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 20)
                 
@@ -15,10 +15,10 @@ struct ProfileView: View {
                     VStack(alignment: .leading, spacing: 14) {
                         Text("John Doe")
                             .font(.title).bold()
-                            .foregroundStyle(Color("DarkBrown"))
+                            .foregroundStyle(AppTheme.textPrimary)
                         Text("Study Progress")
                             .font(.title2).bold()
-                            .foregroundStyle(Color("DarkBrown"))
+                            .foregroundStyle(AppTheme.textPrimary)
                         Text("Week 4 of 12")
                             .font(.title3)
                             .foregroundStyle(AppTheme.primary)
@@ -34,12 +34,12 @@ struct ProfileView: View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: 70, height: 70)
-                        .foregroundStyle(Color("DarkBrown")) // Only needed if using a systemImage icon
+                        .foregroundStyle(AppTheme.textPrimary) // Only needed if using a systemImage icon
                         .clipShape(Circle())
                 }
                 .padding(20)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color("Surface"))
+                .background(AppTheme.surface)
                 .clipShape(RoundedRectangle(cornerRadius: 14))
             }
             
@@ -69,17 +69,17 @@ struct ProfileView: View {
                 
                 Text(title)
                     .font(.title3)
-                    .foregroundStyle(Color("DarkBrown"))
+                    .foregroundStyle(AppTheme.textPrimary)
                 
                 Spacer()
                 
                 Image(systemName: "chevron.right")
                     .font(.body.weight(.semibold))
-                    .foregroundStyle(Color("Taupe"))
+                    .foregroundStyle(AppTheme.textSecondary)
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 20)
-            .background(Color("Surface"))
+            .background(AppTheme.surface)
             .clipShape(RoundedRectangle(cornerRadius: 14))
         }
     }

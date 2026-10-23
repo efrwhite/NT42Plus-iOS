@@ -26,13 +26,13 @@ struct RegistrationView: View {
                     Text("Register")
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color("DarkBrown"))
+                        .foregroundStyle(AppTheme.textPrimary)
 
                     HStack(spacing: 16) {
                         VStack(alignment: .leading, spacing: 0) {
                             Text("First Name")
                                 .font(.subheadline)
-                                .foregroundStyle(Color("DarkBrown"))
+                                .foregroundStyle(AppTheme.textPrimary)
 
                             TextField("John", text: $firstName)
                                 .autocorrectionDisabled()
@@ -42,7 +42,7 @@ struct RegistrationView: View {
                         VStack(alignment: .leading, spacing: 0) {
                             Text("Last Name")
                                 .font(.subheadline)
-                                .foregroundStyle(Color("DarkBrown"))
+                                .foregroundStyle(AppTheme.textPrimary)
 
                             TextField("Doe", text: $lastName)
                                 .autocorrectionDisabled()
@@ -53,7 +53,7 @@ struct RegistrationView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("E-mail")
                             .font(.subheadline)
-                            .foregroundStyle(Color("DarkBrown"))
+                            .foregroundStyle(AppTheme.textPrimary)
 
                         TextField("Enter your email", text: $email)
                             .textInputAutocapitalization(.never)
@@ -65,7 +65,7 @@ struct RegistrationView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Password")
                             .font(.subheadline)
-                            .foregroundStyle(Color("DarkBrown"))
+                            .foregroundStyle(AppTheme.textPrimary)
 
                         HStack {
                             Group {
@@ -82,21 +82,21 @@ struct RegistrationView: View {
                                 showPassword.toggle()
                             } label: {
                                 Image(systemName: showPassword ? "eye" : "eye.slash")
-                                    .foregroundStyle(Color("Taupe"))
+                                    .foregroundStyle(AppTheme.textSecondary)
                             }
                         }
                         .inputBox()
 
                         Text("must contain 8 char.")
                             .font(.caption2)
-                            .foregroundStyle(Color("Taupe"))
+                            .foregroundStyle(AppTheme.textSecondary)
                             .padding(.top, 4)
                     }
 
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Confirm Password")
                             .font(.subheadline)
-                            .foregroundStyle(Color("DarkBrown"))
+                            .foregroundStyle(AppTheme.textPrimary)
 
                         HStack {
                             Group {
@@ -113,7 +113,7 @@ struct RegistrationView: View {
                                 showConfirmPassword.toggle()
                             } label: {
                                 Image(systemName: showConfirmPassword ? "eye" : "eye.slash")
-                                    .foregroundStyle(Color("Taupe"))
+                                    .foregroundStyle(AppTheme.textSecondary)
                             }
                         }
                         .inputBox()
@@ -130,7 +130,7 @@ struct RegistrationView: View {
                     VStack(spacing: 2) {
                         Text("By continuing, you agree to our")
                             .font(.caption)
-                            .foregroundStyle(Color("Taupe"))
+                            .foregroundStyle(AppTheme.textSecondary)
 
                         HStack(spacing: 4) {
                             Text("Terms of Service")
@@ -139,7 +139,7 @@ struct RegistrationView: View {
 
                             Text("and")
                                 .font(.caption)
-                                .foregroundStyle(Color("Taupe"))
+                                .foregroundStyle(AppTheme.textSecondary)
 
                             Text("Privacy Policy.")
                                 .font(.caption)

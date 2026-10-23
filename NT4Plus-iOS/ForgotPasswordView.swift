@@ -19,24 +19,22 @@ struct ForgotPasswordView: View {
                 Text("Forgot Password")
                     .font(.title)
                     .fontWeight(.bold)
-                    .foregroundStyle(Color("DarkBrown"))
+                    .foregroundStyle(AppTheme.textPrimary)
 
                 Text("Enter your email address and we'll send you a reset link.")
                     .font(.subheadline)
-                    .foregroundStyle(Color("Taupe"))
+                    .foregroundStyle(AppTheme.textSecondary)
                     .multilineTextAlignment(.center)
 
                 VStack(alignment: .leading, spacing: 5) {
                     Text("E-mail")
                         .font(.caption)
-                        .foregroundStyle(Color("DarkBrown"))
+                        .foregroundStyle(AppTheme.textPrimary)
 
                     TextField("Enter your email", text: $email)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
-                        .padding()
-                        .background(Color("Surface"))
-                        .cornerRadius(8)
+                        .inputBox()
                 }
 
                 Button("Send Reset Link") {
@@ -47,7 +45,7 @@ struct ForgotPasswordView: View {
                 if messageSent {
                     Text("Reset link sent! Please check your email.")
                         .font(.subheadline)
-                        .foregroundStyle(Color("Gold"))
+                        .foregroundStyle(AppTheme.gold)
                         .multilineTextAlignment(.center)
                 }
 

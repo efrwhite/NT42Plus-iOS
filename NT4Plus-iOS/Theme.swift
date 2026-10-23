@@ -2,9 +2,17 @@ import SwiftUI
 
 // App-Theme
 enum AppTheme {
+    // Maiin Colors
     static let primary = Color("Wine")
     static let accent = Color("Rose")
+    static let gold = Color("Gold")
+
+    // Semantic Colors  - Colors adapt to light or dark - check assets to see color pair
     static let background = Color("Cream")
+    static let surface = Color("Surface")
+    static let textPrimary = Color("DarkBrown")
+    static let textSecondary = Color("Taupe")
+    static let border = Color("Taupe").opacity(0.3)
 }
 
 // Input-Box
@@ -12,9 +20,9 @@ extension View {
     func inputBox() -> some View {
         self
             .padding()
-            .background(Color("Surface"))
+            .background(AppTheme.surface)
             .clipShape(RoundedRectangle(cornerRadius: 8))
-            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color("Taupe").opacity(0.3)))
+            .overlay(RoundedRectangle(cornerRadius: 8).stroke(AppTheme.border))
             .padding(.top, 6)
     }
 }

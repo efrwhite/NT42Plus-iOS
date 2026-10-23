@@ -16,13 +16,13 @@ struct LoginView: View {
 
                 Text("Login")
                     .font(.largeTitle).bold()
-                    .foregroundStyle(Color("DarkBrown"))
+                    .foregroundStyle(AppTheme.textPrimary)
                     .frame(maxWidth: .infinity)
                     .padding(.bottom, 40)
 
                 Text("E-mail")
                     .font(.subheadline)
-                    .foregroundStyle(Color("DarkBrown"))
+                    .foregroundStyle(AppTheme.textPrimary)
                 TextField("Enter your email", text: $email)
                     .textInputAutocapitalization(.never)
                     .keyboardType(.emailAddress)
@@ -32,7 +32,7 @@ struct LoginView: View {
 
                 Text("Password")
                     .font(.subheadline)
-                    .foregroundStyle(Color("DarkBrown"))
+                    .foregroundStyle(AppTheme.textPrimary)
                 HStack {
                     Group {
                         if showPassword {
@@ -48,7 +48,7 @@ struct LoginView: View {
                         showPassword.toggle()
                     } label: {
                         Image(systemName: showPassword ? "eye" : "eye.slash")
-                            .foregroundStyle(Color("Taupe"))
+                            .foregroundStyle(AppTheme.textSecondary)
                     }
                 }
                 .inputBox()
@@ -75,7 +75,7 @@ struct LoginView: View {
                     Text("Or")
                     Rectangle().frame(height: 1)
                 }
-                .foregroundStyle(Color("Taupe"))
+                .foregroundStyle(AppTheme.textSecondary)
                 .padding(.vertical, 28)
 
                 VStack(spacing: 14) {
@@ -104,7 +104,7 @@ struct LoginView: View {
                     .frame(width: 22, height: 22)
                 Text(title)
             }
-            .foregroundStyle(Color("DarkBrown"))
+            .foregroundStyle(AppTheme.textPrimary)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
             .overlay(Capsule().stroke(AppTheme.primary, lineWidth: 1))
