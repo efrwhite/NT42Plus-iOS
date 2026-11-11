@@ -1,71 +1,41 @@
 import SwiftUI
 
-enum AuthRoute: Hashable {
-    case login
-    case register
-}
+enum AuthRoute: Hashable { case login, register }
 
 struct RootView: View {
+    @StateObject private var session = DemoSession()
     @State private var showSplash = true
-    @State private var isAuthenticated = false
     @State private var path: [AuthRoute] = []
 
     var body: some View {
-        ZStack {
+        Group {
             if showSplash {
-                SplashView {
-                    withAnimation(.easeInOut(duration: 0.4)) {
-                        showSplash = false
-                    }
-                }
-                .transition(.opacity)
-            } else if isAuthenticated {
+                SplashView { showSplash = false }
+            } else if session.isAuthenticated {
                 MainTabView()
-                    .transition(.opacity)
             } else {
                 NavigationStack(path: $path) {
-                    WelcomeView(
-                        onRegister: { path.append(.register) },
-                        onLogin: { path.append(.login) }
-                    )
-                    .navigationDestination(for: AuthRoute.self) { route in
-                        switch route {
-                        case .login:
-                            LoginView(onSuccess: {
-                                withAnimation {
-                                    isAuthenticated = true
+                    WelcomeView(onRegister: { path.append(.register) }, onLogin: { path.append(.login) })
+                        .navigationDestination(for: AuthRoute.self) { route in
+                            switch route {
+                            case .login:
+                                LoginView(onSuccess: { email in
+                                    session.signIn(email: email)
                                     path = []
-                                }
-                            })
-                        case .register:
-                            RegistrationView(onSuccess: {
-                                withAnimation {
-                                    isAuthenticated = true
+                                })
+                            case .register:
+                                RegistrationView(onSuccess: { first, last, email in
+                                    session.signIn(email: email, name: first + " " + last)
                                     path = []
-                                }
-                            })
+                                })
+                            }
                         }
-                    }
                 }
                 .tint(AppTheme.primary)
-                .transition(.opacity)
             }
         }
+        .environmentObject(session)
     }
 }
 
-private struct PlaceholderScreen: View {
-    let title: String
-
-    var body: some View {
-        Text(title)
-            .font(.title2)
-            .foregroundStyle(AppTheme.primary)
-            .navigationTitle(title)
-            .navigationBarTitleDisplayMode(.inline)
-    }
-}
-
-#Preview {
-    RootView()
-}
+#Preview { RootView() }

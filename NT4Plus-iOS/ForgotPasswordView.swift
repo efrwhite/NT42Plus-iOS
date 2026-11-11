@@ -4,6 +4,7 @@ struct ForgotPasswordView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var email = ""
     @State private var messageSent = false
+    @State private var validationError = ""
 
     var onSuccess: () -> Void
 
@@ -21,7 +22,7 @@ struct ForgotPasswordView: View {
                     .fontWeight(.bold)
                     .foregroundStyle(AppTheme.textPrimary)
 
-                Text("Enter your email address and we'll send you a reset link.")
+                Text("Enter your email to preview a password reset request.")
                     .font(.subheadline)
                     .foregroundStyle(AppTheme.textSecondary)
                     .multilineTextAlignment(.center)
@@ -37,13 +38,22 @@ struct ForgotPasswordView: View {
                         .inputBox()
                 }
 
-                Button("Send Reset Link") {
+                Button("Preview Reset Request") {
+                    guard DemoSession.validEmail(email) else {
+                        validationError = "Enter a valid email address."
+                        messageSent = false
+                        return
+                    }
+                    validationError = ""
                     messageSent = true
                 }
                 .buttonStyle(PrimaryButtonStyle())
 
+                if !validationError.isEmpty {
+                    Text(validationError).font(.footnote).foregroundStyle(.red)
+                }
                 if messageSent {
-                    Text("Reset link sent! Please check your email.")
+                    Text("Demo confirmation only — no reset email was sent.")
                         .font(.subheadline)
                         .foregroundStyle(AppTheme.gold)
                         .multilineTextAlignment(.center)

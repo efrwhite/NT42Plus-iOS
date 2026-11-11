@@ -10,7 +10,8 @@ struct RegistrationView: View {
     @State private var showPassword = false
     @State private var showConfirmPassword = false
 
-    var onSuccess: () -> Void
+    @State private var validationError = ""
+    var onSuccess: (String, String, String) -> Void
 
     var body: some View {
         ZStack {
@@ -122,12 +123,36 @@ struct RegistrationView: View {
                     Spacer()
                         .frame(height: 20)
 
+                    if !validationError.isEmpty {
+                        Text(validationError).font(.footnote).foregroundStyle(.red)
+                    }
                     Button("Create Account") {
-                        onSuccess()
+                        let first = firstName.trimmingCharacters(in: .whitespacesAndNewlines)
+                        let last = lastName.trimmingCharacters(in: .whitespacesAndNewlines)
+                        guard !first.isEmpty && !last.isEmpty else {
+                            validationError = "Enter first and last name."
+                            return
+                        }
+                        guard DemoSession.validEmail(email) else {
+                            validationError = "Enter a valid email address."
+                            return
+                        }
+                        guard password.count >= 8 else {
+                            validationError = "Password must be at least 8 characters."
+                            return
+                        }
+                        guard password == confirmPassword else {
+                            validationError = "Passwords do not match."
+                            return
+                        }
+                        validationError = ""
+                        onSuccess(first, last, email)
                     }
                     .buttonStyle(PrimaryButtonStyle())
 
                     VStack(spacing: 2) {
+                        Text("Demo only: no real account is created or stored.")
+                            .font(.caption).foregroundStyle(AppTheme.textSecondary)
                         Text("By continuing, you agree to our")
                             .font(.caption)
                             .foregroundStyle(AppTheme.textSecondary)
@@ -155,5 +180,5 @@ struct RegistrationView: View {
 }
 
 #Preview {
-    RegistrationView(onSuccess: {})
+    RegistrationView(onSuccess: { _, _, _ in })
 }

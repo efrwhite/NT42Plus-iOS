@@ -5,7 +5,8 @@ struct LoginView: View {
     @State private var password = ""
     @State private var showPassword = false
     @State private var showForgotPassword = false
-    var onSuccess: () -> Void
+    @State private var validationError = ""
+    var onSuccess: (String) -> Void
 
     var body: some View {
         ZStack {
@@ -64,26 +65,29 @@ struct LoginView: View {
                         .padding(.top, 12)
                 }
 
+                if !validationError.isEmpty {
+                    Text(validationError).font(.footnote).foregroundStyle(.red)
+                        .accessibilityIdentifier("loginValidation")
+                }
                 Button("Login") {
-                    onSuccess()
+                    guard DemoSession.validEmail(email) else {
+                        validationError = "Enter a valid email address."
+                        return
+                    }
+                    guard password.count >= 8 else {
+                        validationError = "Enter a password of at least 8 characters."
+                        return
+                    }
+                    validationError = ""
+                    onSuccess(email)
                 }
                 .buttonStyle(PrimaryButtonStyle())
                 .padding(.top, 36)
 
-                HStack(spacing: 8) {
-                    Rectangle().frame(height: 1)
-                    Text("Or")
-                    Rectangle().frame(height: 1)
-                }
-                .foregroundStyle(AppTheme.textSecondary)
-                .padding(.vertical, 28)
-
-                VStack(spacing: 14) {
-                    socialButton("Continue with Apple", icon: Image(systemName: "apple.logo"))
-                    // Add logos later
-                    socialButton("Continue with Google", icon: Image("GoogleLogo"))
-                    socialButton("Continue with Facebook", icon: Image("FacebookLogo"))
-                }
+                Text("Demo only: any valid email and password of 8+ characters opens the app. No real login or third-party sign-in is connected.")
+                    .font(.footnote)
+                    .foregroundStyle(AppTheme.textSecondary)
+                    .padding(.top, 24)
 
                 Spacer()
             }
@@ -95,23 +99,6 @@ struct LoginView: View {
         }
     }
 
-    private func socialButton(_ title: String, icon: Image) -> some View {
-        Button {} label: {
-            HStack(spacing: 10) {
-                icon
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 22, height: 22)
-                Text(title)
-            }
-            .foregroundStyle(AppTheme.textPrimary)
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 14)
-            .overlay(Capsule().stroke(AppTheme.primary, lineWidth: 1))
-        }
-    }
 }
 
-#Preview {
-    LoginView(onSuccess: {})
-}
+#Preview { LoginView(onSuccess: { _ in }) }

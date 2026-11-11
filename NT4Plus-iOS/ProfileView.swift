@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject private var session: DemoSession
     var body: some View {
-        VStack(spacing: 32) {
+        ScrollView {
+            VStack(spacing: 32) {
             VStack(spacing: 32) {
                 Text("Profile")
                     .font(.largeTitle).bold()
@@ -13,7 +15,7 @@ struct ProfileView: View {
                 HStack(alignment: .top) {
                     
                     VStack(alignment: .leading, spacing: 14) {
-                        Text("John Doe")
+                        Text(session.name)
                             .font(.title).bold()
                             .foregroundStyle(AppTheme.textPrimary)
                         Text("Study Progress")
@@ -45,22 +47,21 @@ struct ProfileView: View {
             
             
             VStack(spacing: 16) {
-                optionButton(title: "Study Week", icon: "calendar")
-                optionButton(title: "Community Guidelines", icon: "book.closed")
-                optionButton(title: "Contact Study Team", icon: "envelope")
-                optionButton(title: "Settings", icon: "gearshape")
+                NavigationLink { ProfileInformationView(title: "Study Week", detail: "Week 4 of 12 is illustrative demo data, not an actual progress record.") } label: { optionRow(title: "Study Week", icon: "calendar") }
+                NavigationLink { ProfileInformationView(title: "Community Guidelines", detail: "Be respectful and protect other participants' privacy. This is an offline community preview.") } label: { optionRow(title: "Community Guidelines", icon: "book.closed") }
+                NavigationLink { ProfileInformationView(title: "Contact Study Team", detail: "Study team contact information is not connected in this mock demo.") } label: { optionRow(title: "Contact Study Team", icon: "envelope") }
+                NavigationLink { ProfileInformationView(title: "Settings", detail: "No settings are persisted in this mock demo.") } label: { optionRow(title: "Settings", icon: "gearshape") }
+                Button("Log Out", role: .destructive) { session.signOut() }
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
             
-            Spacer()
+            }
+            .padding(.horizontal, 24)
         }
-        .padding(.horizontal, 24)
         .background(AppTheme.background.ignoresSafeArea())
     }
     
-    private func optionButton(title: String, icon: String) -> some View {
-        Button {
-            // Add Action
-        } label: {
+    private func optionRow(title: String, icon: String) -> some View {
             HStack(spacing: 16) {
                 Image(systemName: icon)
                     .font(.title3)
@@ -81,10 +82,19 @@ struct ProfileView: View {
             .padding(.vertical, 20)
             .background(AppTheme.surface)
             .clipShape(RoundedRectangle(cornerRadius: 14))
-        }
     }
 }
 
-#Preview {
-    ProfileView()
+private struct ProfileInformationView: View {
+    let title: String
+    let detail: String
+    var body: some View {
+        ScrollView {
+            Text(detail).frame(maxWidth: .infinity, alignment: .leading).padding()
+        }
+        .background(AppTheme.background)
+        .navigationTitle(title)
+    }
 }
+
+#Preview { NavigationStack { ProfileView() }.environmentObject(DemoSession()) }
