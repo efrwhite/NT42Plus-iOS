@@ -3,7 +3,13 @@ import SwiftUI
 struct ParticipantCard: View {
     let symbol: String
     let title: String
-    let detail: String
+    let detail: String?
+
+    init(symbol: String, title: String, detail: String? = nil) {
+        self.symbol = symbol
+        self.title = title
+        self.detail = detail
+    }
 
     var body: some View {
         HStack(spacing: 14) {
@@ -14,7 +20,9 @@ struct ParticipantCard: View {
                 .background(AppTheme.accent.opacity(0.18), in: RoundedRectangle(cornerRadius: 12))
             VStack(alignment: .leading, spacing: 5) {
                 Text(title).font(.headline).foregroundStyle(AppTheme.textPrimary)
-                Text(detail).font(.subheadline).foregroundStyle(AppTheme.textSecondary)
+                if let detail, !detail.isEmpty {
+                    Text(detail).font(.subheadline).foregroundStyle(AppTheme.textSecondary)
+                }
             }
             Spacer(minLength: 4)
             Image(systemName: "chevron.right")

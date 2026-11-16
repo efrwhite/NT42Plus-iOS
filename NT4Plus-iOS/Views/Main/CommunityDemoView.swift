@@ -3,13 +3,22 @@ import SwiftUI
 struct CommunityDemoView: View {
     @State private var messages = ["Welcome to the community preview.", "Share your favorite easy meal idea!"]
     @State private var draft = ""
+    @FocusState private var isInputFocused: Bool
+
     var body: some View {
         VStack(spacing: 0) {
             List(messages.indices, id: \.self) { index in
                 Text(messages[index]).foregroundStyle(AppTheme.textPrimary)
             }
+            .scrollDismissesKeyboard(.interactively)
             HStack {
-                TextField("Type a demo message", text: $draft).inputBox()
+                TextField("Type a demo message", text: $draft)
+                    .focused($isInputFocused)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        isInputFocused = false
+                    }
+                    .inputBox()
                 Button {
                     let value = draft.trimmingCharacters(in: .whitespacesAndNewlines)
                     guard !value.isEmpty else { return }
@@ -24,6 +33,7 @@ struct CommunityDemoView: View {
         }
         .background(AppTheme.background)
         .navigationTitle("Community")
+
     }
 }
 

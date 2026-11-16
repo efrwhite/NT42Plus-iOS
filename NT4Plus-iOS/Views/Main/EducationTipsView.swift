@@ -22,12 +22,17 @@ struct EducationTipsView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     Text(article.category.uppercased()).font(.caption.bold()).foregroundStyle(AppTheme.primary)
+                    Text(article.title)
+                        .font(.title.bold())
+                        .foregroundStyle(AppTheme.textPrimary)
+                        .fixedSize(horizontal: false, vertical: true)
                     Text(article.summary).font(.title3.weight(.medium))
                     Text(article.body).foregroundStyle(AppTheme.textPrimary)
                 }.frame(maxWidth: .infinity, alignment: .leading).padding(20)
             }
             .background(AppTheme.background)
             .navigationTitle(article.title)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
